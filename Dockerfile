@@ -1,8 +1,8 @@
 FROM cm2network/steamcmd:root as build_stage
 
 ENV STEAMAPPID 2394010
-ENV STEAMAPP Palworld
-ENV STEAMAPPDIR "${HOMEDIR}/${STEAMAPP}"
+ENV STEAMAPP PalServer
+ENV STEAMAPPDIR "${HOMEDIR}/Steam/steamapps/common/${STEAMAPP}"
 ENV STEAMUSER anonymous
 COPY download_and_run_gameserver.sh "${HOMEDIR}/entry.sh"
 
