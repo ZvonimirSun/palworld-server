@@ -1,5 +1,7 @@
 From steamcmd/steamcmd
 
+USER steam
+
 # Copy our shell script to docker container.
 # This shell script will be used to download gamefiles
 # and configure our gameserver.
