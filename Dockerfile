@@ -1,5 +1,7 @@
 From steamcmd/steamcmd
 
+RUN groupadd -r steam && useradd -r -g steam steam
+
 USER steam
 
 # Copy our shell script to docker container.
