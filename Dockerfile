@@ -1,7 +1,5 @@
 From steamcmd/steamcmd
 
-RUN mkdir -p ~/.steam/sdk64/ && steamcmd +login anonymous +app_update 1007 +quit && cp ~/Steam/steamapps/common/Steamworks\ SDK\ Redist/linux64/steamclient.so ~/.steam/sdk64/
-
 # Copy our shell script to docker container.
 # This shell script will be used to download gamefiles
 # and configure our gameserver.
