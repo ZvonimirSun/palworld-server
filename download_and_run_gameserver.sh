@@ -1,12 +1,10 @@
 #!/bin/bash
+mkdir -p "${STEAMAPPDIR}" || true
 
-# Download game files using SteamCMD to the specified volume
-# The volume needs to be mounted when running the container
+bash "${STEAMCMDDIR}/steamcmd.sh" +force_install_dir "${STEAMAPPDIR}" \
+                                  +login "${STEAMUSER}" \
+                                  +app_update "${STEAMAPPID}" \
+                                  +quit
 
-# Run SteamCMD to download the game files using app ID - 2394010 ( Palworld server )
-steamcmd +force_install_dir /home/game_server +login anonymous +app_update 2394010 validate +quit
-
-chown steam:steam /home/game_server -Rf
-su steam
-cd /home/game_server
+cd "${STEAMAPPDIR}"
 ./PalServer.sh

@@ -1,20 +1,21 @@
-From steamcmd/steamcmd
+FROM cm2network/steamcmd:root as build_stage
 
-RUN groupadd -r steam && useradd -r -g steam steam
+ENV STEAMAPPID 2394010
+ENV STEAMAPP Palworld
+ENV STEAMAPPDIR "${HOMEDIR}/${STEAMAPP}"
+COPY download_and_run_gameserver.sh "${HOMEDIR}/entry.sh"
 
-# Copy our shell script to docker container.
-# This shell script will be used to download gamefiles
-# and configure our gameserver.
-# Description for this file is given later
-COPY download_and_run_gameserver.sh /home/entrypoint.sh
+RUN mkdir -p "${STEAMAPPDIR}" \
+    && chmod +x "${HOMEDIR}/entry.sh" \
+    && chown -R "${USER}:${USER}" "${HOMEDIR}/entry.sh" "${STEAMAPPDIR}"
 
-# Set executable permissions for our shell script
-RUN chmod +x /home/entrypoint.sh
+FROM build_stage AS bullseye-base
 
-VOLUME [ "/home/game_server" ]
+# Switch to user
+USER ${USER}
+
+WORKDIR ${HOMEDIR}
+
+CMD ["bash", "entry.sh"]
 
 EXPOSE 8211/udp
-
-# Set our shell script as entrypoint for our container
-# So that it gets executed when we RUN the container
-ENTRYPOINT [ "/home/entrypoint.sh"]
