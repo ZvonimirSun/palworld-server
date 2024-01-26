@@ -4,4 +4,4 @@ bash "${STEAMCMDDIR}/steamcmd.sh" +login "${STEAMUSER}" \
                                   +quit
 
 cd "${STEAMAPPDIR}"
-./PalServer.sh
+./PalServer.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
